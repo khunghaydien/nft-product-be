@@ -37,6 +37,26 @@ export class NftEntity {
   @Column({ type: 'jsonb', name: 'metadata', nullable: true })
   metadata: NftMetadataPayload | null;
 
+  /** CID của media file upload lên Pinata. */
+  @Column({ type: 'varchar', length: 255, name: 'image_cid', nullable: true })
+  imageCid: string | null;
+
+  /** CID của metadata JSON upload lên Pinata. */
+  @Column({ type: 'varchar', length: 255, name: 'metadata_cid', nullable: true })
+  metadataCid: string | null;
+
+  /** Token URI đã dùng khi mint on-chain. */
+  @Column({ type: 'varchar', length: 255, name: 'token_uri', nullable: true })
+  tokenUri: string | null;
+
+  /** Transaction hash khi mint NFT. */
+  @Column({ type: 'varchar', length: 100, name: 'tx_hash', nullable: true })
+  txHash: string | null;
+
+  /** Số block chứa transaction mint. */
+  @Column({ type: 'bigint', name: 'block_number', nullable: true })
+  blockNumber: string | null;
+
   /** Owner address (wallet or account id). */
   @Column({ type: 'varchar', length: 255, name: 'owner', nullable: true })
   owner: string | null;

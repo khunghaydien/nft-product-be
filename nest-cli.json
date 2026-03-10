@@ -37,6 +37,15 @@
         "tsConfigPath": "libs/database/tsconfig.lib.json"
       }
     },
+    "nft": {
+      "type": "library",
+      "root": "libs/nft",
+      "entryFile": "index",
+      "sourceRoot": "libs/nft/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/nft/tsconfig.lib.json"
+      }
+    },
     "users": {
       "type": "library",
       "root": "libs/users",

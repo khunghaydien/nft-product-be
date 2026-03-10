@@ -21,7 +21,7 @@ async function main() {
     const receiver = process.env.METAMASK_RECEIVER_ADDRESS;
 
     const tokenURI =
-        "ipfs://bafkreihod7ilyy2kuvygpman3hxkw76pocwlvoeefuopchjvqrsua7sxae";
+        "ipfs://bafkreid5sldya2urswfvtmaq5mllcyhtgdgllzkoy67bg4s6zkpa2d6rdi";
 
     console.log("Minting NFT...");
 

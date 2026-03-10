@@ -1,30 +1,51 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { NftService } from './nft.service';
-import { UploadMetadataDto, UploadMetadataResponseDto, MintNftDto, MintNftResponseDto } from './dto';
+import { Body, Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
+import { NftService } from '@app/nft';
+import { MintNftDto } from '@app/nft/dto/mint.dto';
 
 @ApiTags('nft')
 @Controller('nft')
 export class NftController {
-  constructor(private readonly nftService: NftService) {}
-
-  @Post('upload-metadata')
-  @ApiOperation({ summary: 'Upload NFT metadata (name, description, image, attributes)' })
-  async uploadMetadata(
-    @Body() dto: UploadMetadataDto,
-  ): Promise<UploadMetadataResponseDto> {
-    return this.nftService.uploadMetadata(dto);
-  }
+  constructor(private readonly nftService: NftService) { }
 
   @Post('mint')
-  @ApiOperation({ summary: 'Mint NFT with token id and optional owner' })
-  async mint(@Body() dto: MintNftDto): Promise<MintNftResponseDto> {
-    return this.nftService.mint(dto);
-  }
-
-  @Get(':tokenId')
-  @ApiOperation({ summary: 'Get NFT by token id' })
-  async getByTokenId(@Param('tokenId') tokenId: string): Promise<MintNftResponseDto> {
-    return this.nftService.findByTokenId(tokenId);
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: memoryStorage(),
+    }),
+  )
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: 'Mint NFT: upload media + metadata, tự động push lên Pinata và mint',
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+        name: { type: 'string' },
+        description: { type: 'string' },
+        externalUrl: { type: 'string' },
+        attributesJson: {
+          type: 'string',
+          description:
+            'Chuỗi JSON attributes (ví dụ: [{ "trait_type": "Brand", "value": "XYZ" }])',
+        },
+      },
+      required: ['file', 'name'],
+    },
+  })  
+  async mint(@UploadedFile() file: any, @Body() dto: MintNftDto): Promise<any> {
+    return this.nftService.mintFromUpload({
+      file,
+      name: dto.name,
+      description: dto.description,
+      externalUrl: dto.externalUrl,
+      attributesJson: dto.attributesJson,
+    });
   }
 }
+
