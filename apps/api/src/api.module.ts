@@ -5,7 +5,9 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import {
   UserEntity,
+  NftEntity,
 } from '@app/database';
+import { NftModule } from './nft/nft.module';
 import 'dotenv/config';
 
 @Module({
@@ -19,12 +21,14 @@ import 'dotenv/config';
       database: process.env.DB_DATABASE || 'template_db',
       entities: [
         UserEntity,
+        NftEntity,
       ],
       synchronize: false,
       logging: process.env.NODE_ENV !== 'production',
     }),
     UsersModule,
     AuthModule,
+    NftModule,
   ],
   providers: [ApiService],
 })

@@ -9,7 +9,10 @@ import { UsersService } from './users.service';
     TypeOrmModule.forFeature([UserEntity]),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'default-jwt-secret',
-      signOptions: { expiresIn: process.env.JWT_ACCESS_EXPIRES || '15m' },
+      // Cast để tránh lỗi type của expiresIn (ms StringValue)
+      signOptions: {
+        expiresIn: (process.env.JWT_ACCESS_EXPIRES || '15m') as any,
+      },
     }),
   ],
   providers: [UsersService],

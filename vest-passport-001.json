@@ -1,0 +1,47 @@
+{
+    "name": "Luxury Product Passport #001",
+    "description": "Digital passport certifying authenticity of a premium tailored suit. Created by MSME AI JSC.",
+    "image": "ipfs://bafkreiceh7b6wykpovqtx7lalqrdvxj4jf5skkwuhpjdsnxos655tog3ye",
+    "attributes": [
+        {
+            "trait_type": "Product Type",
+            "value": "Luxury Suit"
+        },
+        {
+            "trait_type": "Brand",
+            "value": "MSME AI Tailoring"
+        },
+        {
+            "trait_type": "Model",
+            "value": "Classic Business Suit"
+        },
+        {
+            "trait_type": "Material",
+            "value": "Premium Wool Blend"
+        },
+        {
+            "trait_type": "Color",
+            "value": "Charcoal Gray"
+        },
+        {
+            "trait_type": "Fit",
+            "value": "Slim Fit"
+        },
+        {
+            "trait_type": "Manufactured By",
+            "value": "MSME AI JSC"
+        },
+        {
+            "trait_type": "Certificate Authority",
+            "value": "MSME AI JSC"
+        },
+        {
+            "trait_type": "Manufacture Year",
+            "value": "2026"
+        },
+        {
+            "trait_type": "Product ID",
+            "value": "MSME-SUIT-0001"
+        }
+    ]
+}

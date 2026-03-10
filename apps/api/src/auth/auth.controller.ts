@@ -18,7 +18,7 @@ export class AuthController {
     const accessToken = this.usersService.createAccessToken(user);
     const refreshToken = this.usersService.createRefreshToken(user);
     return {
-      user: { id: user.id, userName: user.userName },
+      user: { id: user.id, email: user.email },
       accessToken,
       refreshToken,
     };

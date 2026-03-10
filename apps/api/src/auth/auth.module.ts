@@ -11,7 +11,10 @@ import { JwtStrategy } from '@app/common';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'default-jwt-secret',
-      signOptions: { expiresIn: process.env.JWT_ACCESS_EXPIRES || '15m' },
+      // Cast để tránh lỗi type của expiresIn (ms StringValue)
+      signOptions: {
+        expiresIn: (process.env.JWT_ACCESS_EXPIRES || '15m') as any,
+      },
     }),
   ],
   controllers: [AuthController],

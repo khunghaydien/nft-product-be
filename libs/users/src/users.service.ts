@@ -99,7 +99,9 @@ export class UsersService {
 
   createAccessToken(user: UserEntity): string {
     const secret = process.env.JWT_SECRET || 'default-access-secret';
-    const expiresIn = process.env.JWT_ACCESS_EXPIRES || DEFAULT_ACCESS_EXPIRES;
+    // Cast để tương thích type expiresIn của JwtSignOptions
+    const expiresIn = (process.env.JWT_ACCESS_EXPIRES ||
+      DEFAULT_ACCESS_EXPIRES) as any;
     return this.jwtService.sign(
       { sub: user.id, email: user.email },
       { secret, expiresIn },
@@ -108,7 +110,9 @@ export class UsersService {
 
   createRefreshToken(user: UserEntity): string {
     const secret = process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret';
-    const expiresIn = process.env.JWT_REFRESH_EXPIRES || DEFAULT_REFRESH_EXPIRES;
+    // Cast để tương thích type expiresIn của JwtSignOptions
+    const expiresIn = (process.env.JWT_REFRESH_EXPIRES ||
+      DEFAULT_REFRESH_EXPIRES) as any;
     return this.jwtService.sign(
       { sub: user.id, email: user.email },
       { secret, expiresIn },
