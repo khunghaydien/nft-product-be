@@ -30,6 +30,12 @@
       "@app/database/*": [
         "libs/database/src/*"
       ],
+      "@app/nft": [
+        "libs/nft/src"
+      ],
+      "@app/nft/*": [
+        "libs/nft/src/*"
+      ],
       "@app/users": [
         "libs/users/src"
       ],
